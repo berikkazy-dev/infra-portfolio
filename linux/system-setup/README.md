@@ -29,3 +29,11 @@ Installed Ubuntu Server on VMware and performed initial system setup.
 ### 所有者変更 / Ownership
 - file1 の所有者を testuser に変更
 - Changed file1 owner to testuser
+
+### 📸 Screenshot
+<img width="1920" height="1080" alt="Снимок экрана 2026-03-24 230156" src="https://github.com/user-attachments/assets/50075be0-f490-419c-9d80-a73ac27c3253" />
+
+<img width="1920" height="1080" alt="image_2026-03-24_23-09-57" src="https://github.com/user-attachments/assets/3b44ca62-92e1-4073-9bd7-534fa3d9f634" />
+
+<img width="1920" height="1080" alt="image_2026-03-24_23-28-21" src="https://github.com/user-attachments/assets/1e1e0b0f-2bec-4a30-8339-c37e6c76f1f4" />
+
