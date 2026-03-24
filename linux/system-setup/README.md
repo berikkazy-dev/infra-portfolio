@@ -20,3 +20,12 @@ Installed Ubuntu Server on VMware and performed initial system setup.
 - Basic Linux system setup process
 - User and permission management fundamentals
 - Initial server configuration workflow
+## 結果 / Results
+
+### 権限設定 / File permissions
+- testdir → 755 (drwxr-xr-x)
+- file1 → 644 (-rw-r--r--)
+
+### 所有者変更 / Ownership
+- file1 の所有者を testuser に変更
+- Changed file1 owner to testuser
