@@ -30,10 +30,58 @@ Installed Ubuntu Server on VMware and performed initial system setup.
 - file1 の所有者を testuser に変更
 - Changed file1 owner to testuser
 
-### 📸 Screenshot
-<img width="1920" height="1080" alt="Снимок экрана 2026-03-24 230156" src="https://github.com/user-attachments/assets/50075be0-f490-419c-9d80-a73ac27c3253" />
+### 📸 Screenshots
+![user_setup](https://github.com/user-attachments/assets/8f1c5ef5-0bec-49a1-8d2d-43b682a083eb />
 
-<img width="1920" height="1080" alt="image_2026-03-24_23-09-57" src="https://github.com/user-attachments/assets/3b44ca62-92e1-4073-9bd7-534fa3d9f634" />
+![user_setup](https://github.com/user-attachments/assets/9d18f9a0-6f7e-4d49-a93f-4c62a8bb7fa5 />
 
-<img width="1920" height="1080" alt="image_2026-03-24_23-28-21" src="https://github.com/user-attachments/assets/1e1e0b0f-2bec-4a30-8339-c37e6c76f1f4" />
+![user_setup](https://github.com/user-attachments/assets/f5e97e22-22fb-40d3-96b6-05a6f24a8d96 />
+
+## 🧩 Part 2: User & Group Management
+
+## 🇯🇵 概要
+ユーザーとグループの管理、sudo権限の設定、および基本的なアクセス制御の確認を実施しました。
+
+## 🇺🇸 Overview
+Configured user and group management, set up sudo privileges, and validated access control in a Linux environment.
+
+## 実施内容 / What I did
+- Created users (dev1, dev2)
+- Created a group (devteam)
+- Added users to the group
+- Granted sudo privileges to dev1
+- Verified user identity, group membership, and sudo access
+
+## 使用技術 / Tech Stack
+- Ubuntu Server
+- Linux CLI
+
+## 学んだこと / Learnings
+- User and group management fundamentals
+- Sudo privilege configuration
+- Basic troubleshooting of user environment issues
+
+## 結果 / Results
+
+### 👥 ユーザー・グループ管理 / User & Group Management
+- Created users: dev1, dev2
+- Created group: devteam
+- Added dev1 and dev2 to devteam
+- Granted sudo privileges to dev1
+
+### 🔍 確認 / Verification
+- Verified current user with whoami
+- Verified group membership with groups
+- Verified sudo access with sudo ls /root
+
+### 🛠 問題と対応 / Issue and Fix
+- Encountered missing home directory issue when switching to dev1
+- Created missing home directory: /home/dev1
+- Set correct ownership with chown dev1:dev1 /home/dev1
+- Confirmed successful login after fix
+
+### 📸 Screenshots
+![user_setup](https://github.com/user-attachments/assets/b7b61b45-b461-4de5-9a4a-b514216189f2 />)
+
+![user_setup](https://github.com/user-attachments/assets/a25f5cd0-e4a5-4a24-92ab-8c1ff83fd451 />
 
