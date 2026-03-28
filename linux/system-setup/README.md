@@ -31,11 +31,11 @@ Installed Ubuntu Server on VMware and performed initial system setup.
 - Changed file1 owner to testuser
 
 ### 📸 Screenshots
-![user_setup](https://github.com/user-attachments/assets/8f1c5ef5-0bec-49a1-8d2d-43b682a083eb />
+![user_setup](https://github.com/user-attachments/assets/8f1c5ef5-0bec-49a1-8d2d-43b682a083eb)
 
-![user_setup](https://github.com/user-attachments/assets/9d18f9a0-6f7e-4d49-a93f-4c62a8bb7fa5 />
+![user_setup](https://github.com/user-attachments/assets/9d18f9a0-6f7e-4d49-a93f-4c62a8bb7fa5)
 
-![user_setup](https://github.com/user-attachments/assets/f5e97e22-22fb-40d3-96b6-05a6f24a8d96 />
+![user_setup](https://github.com/user-attachments/assets/f5e97e22-22fb-40d3-96b6-05a6f24a8d96)
 
 ## 🧩 Part 2: User & Group Management
 
@@ -81,7 +81,7 @@ Configured user and group management, set up sudo privileges, and validated acce
 - Confirmed successful login after fix
 
 ### 📸 Screenshots
-![user_setup](https://github.com/user-attachments/assets/b7b61b45-b461-4de5-9a4a-b514216189f2 />)
+![user_setup](https://github.com/user-attachments/assets/b7b61b45-b461-4de5-9a4a-b514216189f2)
 
-![user_setup](https://github.com/user-attachments/assets/a25f5cd0-e4a5-4a24-92ab-8c1ff83fd451 />
+![user_setup](https://github.com/user-attachments/assets/a25f5cd0-e4a5-4a24-92ab-8c1ff83fd451)
 
