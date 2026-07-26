@@ -22,11 +22,11 @@ Automated the deployment of an isolated AWS infrastructure in the Tokyo region (
 
 ### Code
 
-![Provider, VPC and Subnet](images/image_18.png)
+![Provider, VPC and Subnet](images/provider-vpc-subnet.png)
 
 ### Apply Result
 
-![Terraform Apply Result](images/image_20.png)
+![Terraform Apply Result](images/provider-vpc-subnet-apply.png)
 
 ---
 
@@ -44,11 +44,11 @@ Automated the deployment of an isolated AWS infrastructure in the Tokyo region (
 
 ### Code
 
-![Internet Gateway and Route Table](images/image_16.png)
+![Internet Gateway and Route Table](images/internet-gateway-route-table.png)
 
 ### Apply Result
 
-![Terraform Apply Result](images/image_23.png)
+![Terraform Apply Result](images/internet-gateway-route-table-apply.png)
 
 ---
 
@@ -69,11 +69,11 @@ Automated the deployment of an isolated AWS infrastructure in the Tokyo region (
 
 ### Code
 
-![Security Group](images/image_17.png)
+![Security Group](images/security-group.png)
 
 ### Apply Result
 
-![Terraform Apply Result](images/image_21.png)
+![Terraform Apply Result](images/security-group-apply.png)
 
 ---
 
@@ -91,11 +91,11 @@ Automated the deployment of an isolated AWS infrastructure in the Tokyo region (
 
 ### Code
 
-![EC2 Instance](images/image_19.png)
+![EC2 Instance](images/ec2-instance.png)
 
 ### Apply Result
 
-![Terraform Apply Result](images/image_22.png)
+![Terraform Apply Result](images/ec2-instance-apply.png)
 
 ---
 
