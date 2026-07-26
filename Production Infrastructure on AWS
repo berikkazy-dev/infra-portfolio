@@ -1,0 +1,19 @@
+# AWS Infrastructure Portfolio Project
+
+Production-grade infrastructure project built with Infrastructure as Code (IaC) principles for SRE/Cloud engineering demonstration.
+
+## 🏗️ Architecture & Stack
+- Cloud Provider: AWS (Region: ap-northeast-1 / Tokyo)
+- Provisioning Tool: Terraform
+- Compute: EC2 (`t3.micro` - Free Tier eligible)
+- OS: Ubuntu 22.04 LTS
+- Networking: Custom VPC, Public/Private Subnets, Internet Gateway, Security Groups
+
+## 🚀 Pipeline & Stages
+1. Infrastructure as Code: Automated provisioning of networking and compute layers via Terraform.
+2. Security: Implementation of least-privilege access rules through Security Groups.
+3. OS Provisioning & Configuration: Automated environment setup.
+4. CI/CD & Monitoring: (In progress) Automated deployment pipelines and observability.
+
+## 📂 Repository Structure
+- main.tf — Main Terraform configuration (Provider, VPC, Subnets, Security Groups, EC2 instance).
