@@ -146,6 +146,9 @@ The server is configured to automatically install Nginx, unpack the site, and se
 ### 🇯🇵 日本語
 サーバーは、Nginxのインストール、サイトの解凍、およびポート80での配信を自動的に行うように構成されています。
 
+## 🌐 Live Demo
+👉 **[Click here to view the live portfolio website](http://13.192.207.57)**
+
 ![Live Website](images/live-website.png)
 
 ---
