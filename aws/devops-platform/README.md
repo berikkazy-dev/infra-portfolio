@@ -48,7 +48,7 @@ Automated the deployment of an isolated AWS infrastructure in the Tokyo region (
 
 ## 🇯🇵 実施内容
 - Security Group（portfolio-sg）の作成
-- TTP（80）、HTTPS（443）のインバウンドルールを設定
+- HTTP（80）、HTTPS（443）のインバウンドルールを設定
 - すべてのアウトバウンド通信を許可
 
 ## 🇺🇸 What I did
