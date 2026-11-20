@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Haku Terminal | INTP 5w4</title>
+    <style>
+        :root {
+            --bg: #0a0e1a;
+            --panel: #111827;
+            --neon-green: #00ffc8;
+            --neon-pink: #ff2d95;
+            --neon-blue: #00d4ff;
+            --text: #e2e8f0;
+            --muted: #64748b;
+        }
+        * { box-sizing: border-box; }
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Courier New', monospace;
+            margin: 0;
+            padding: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            width: 100%;
+            max-width: 680px;
+            background: var(--panel);
+            border: 2px solid var(--neon-green);
+            border-radius: 10px;
+            padding: 22px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(0, 255, 200, 0.25);
+            animation: borderPulse 5s ease-in-out infinite;
+        }
+        @keyframes borderPulse {
+            0%, 100% { border-color: var(--neon-green); }
+            50% { border-color: var(--neon-pink); }
+        }
+        .scan-line {
+            position: absolute; top: 0; left: 0; right: 0; height: 2px;
+            background: linear-gradient(90deg, transparent, var(--neon-green), transparent);
+            animation: scan 5s linear infinite; opacity: 0.35;
+        }
+        @keyframes scan { 0% { top: 0; } 100% { top: 100%; } }
+        
+        .top-bar {
+            display: flex; justify-content: space-between; align-items: center;
+            font-size: 11px; color: var(--muted); border-bottom: 1px dashed #334155;
+            padding-bottom: 8px; margin-bottom: 18px;
+        }
+        .controls { display: flex; gap: 10px; }
+        .controls button {
+            background: transparent; color: var(--neon-green); border: 1px solid var(--neon-green);
+            padding: 3px 8px; font-size: 10px; cursor: pointer; border-radius: 3px; margin: 0;
+            text-align: center; transition: 0.2s;
+        }
+        .controls button:hover { background: var(--neon-green); color: var(--bg); }
+
+        h2 { color: var(--neon-green); margin-top: 0; font-size: 17px; text-transform: uppercase; animation: flicker 4s infinite; }
+        @keyframes flicker {
+            0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% { opacity: 1; text-shadow: 0 0 8px rgba(0, 255, 200, 0.6); }
+            20%, 24%, 55% { opacity: 0.65; text-shadow: none; }
+        }
+        .screen { display: none; opacity: 0; }
+        .screen.active { display: block; animation: screenIn 0.6s ease forwards; }
+        @keyframes screenIn { 0% { opacity: 0; transform: translateY(6px); filter: blur(4px); } 100% { opacity: 1; transform: translateY(0); filter: blur(0); } }
+        
+        .avatar-box {
+            display: flex; gap: 15px; margin-bottom: 20px; background: rgba(0, 0, 0, 0.45);
+            padding: 16px; border-radius: 8px; border-left: 3px solid var(--neon-green);
+        }
+        .avatar-img { width: 70px; height: 70px; border-radius: 50%; border: 2px solid var(--neon-green); object-fit: cover; background: #222; }
+        .dialogue { font-size: 13px; line-height: 1.6; flex: 1; }
+        .dialogue strong { color: var(--neon-green); }
+        
+        input {
+            width: 100%; background: var(--bg); border: 1px solid var(--neon-green);
+            color: var(--text); padding: 11px; font-family: 'Courier New', monospace;
+            margin-top: 5px; margin-bottom: 15px; border-radius: 5px; outline: none;
+        }
+        button.action-btn {
+            background: transparent; color: var(--neon-green); border: 1px solid var(--neon-green);
+            padding: 13px 15px; font-family: 'Courier New', monospace; font-size: 13px;
+            cursor: pointer; margin-top: 10px; border-radius: 5px; display: block; width: 100%;
+            text-align: left; transition: all 0.25s ease;
+        }
+        button.action-btn:hover { background: var(--neon-green); color: var(--bg); transform: translateX(4px); }
+        
+        .reaction-box { background: rgba(255, 45, 149, 0.07); border: 1px dashed var(--neon-pink); padding: 14px; margin-bottom: 15px; font-size: 12.5px; color: #ff85c0; border-radius: 5px; }
+        .stat-bar { background: #1e293b; height: 12px; border-radius: 6px; margin: 10px 0; overflow: hidden; border: 1px solid var(--neon-green); }
+        .stat-fill { background: linear-gradient(90deg, var(--neon-green), var(--neon-pink)); height: 100%; width: 0%; transition: width 1.4s ease; }
+        .about-box { background: rgba(0, 212, 255, 0.05); border: 1px dashed var(--neon-blue); padding: 16px; margin: 18px 0; font-size: 12.5px; border-radius: 5px; }
+        .about-box strong { color: var(--neon-blue); }
+        
+        .contacts { display: flex; flex-direction: column; gap: 8px; margin-top: 12px; }
+        .contacts a { color: var(--neon-green); text-decoration: none; padding: 11px 14px; border: 1px solid var(--neon-green); border-radius: 5px; font-size: 12.5px; text-align: center; transition: 0.2s; }
+        .contacts a:hover { background: var(--neon-green); color: var(--bg); }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="scan-line"></div>
+    
+    <div class="top-bar">
+        <span>[SYS: ONLINE]</span>
+        <div class="controls">
+            <button onclick="toggleMusic()" id="music-btn">▶ MUSIC</button>
+            <button onclick="setLang('en')">EN</button>
+            <button onclick="setLang('jp')">JP</button>
+        </div>
+    </div>
+
+    <!-- МУЗЫКА (замени ссылку внутри src на свой mp3) -->
+    <audio id="bg-music" loop>
+        <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3" type="audio/mp3">
+    </audio>
+
+    <div id="screen-register" class="screen active">
+        <h2 data-en="Ship Scanner: Identification" data-jp="艦内スキャナー: 存在証明">Ship Scanner: Identification</h2>
+        <div class="avatar-box">
+            <!-- Рейвен: твоя картинка -->
+            <img src="https://cdn.imagetourls.com/uploads/tyImg/MxIfSyoF.jpg" class="avatar-img" alt="Robo-Raven">
+            <div class="dialogue">
+                <strong data-en="Robo-Raven [AI-Scout]:" data-jp="ロボ・レイヴン [AIスカウト]:">Robo-Raven [AI-Scout]:</strong>
+                <span data-en="«Squawk! New traveler signal detected. State your name before docking.»" data-jp="「カーッ！新たな旅人の信号を検知。ドッキング前に名前を入力しろ。」">«Squawk! New traveler signal detected. State your name before docking.»</span>
+            </div>
+        </div>
+        <label data-en="Your Name / Callsign:" data-jp="名前 / コールサイン:" style="font-size:12px;color:var(--muted);">Your Name / Callsign:</label>
+        <input type="text" id="pilot-name" placeholder="E.g. Wanderer / Ghost">
+        <button class="action-btn" onclick="registerPilot()" data-en="[ Confirm Essence ]" data-jp="[ 本質を確定する ]">[ Confirm Essence ]</button>
+    </div>
+
+    <div id="screen-1" class="screen">
+        <h2 data-en="Secure Philosophy Channel" data-jp="セキュア哲学チャネル">Secure Philosophy Channel</h2>
+        <div class="avatar-box">
+            <!-- Хаку: твоя картинка -->
+            <img src="https://cdn.imagetourls.com/uploads/tyImg/Dqd8FjaX.jpg" class="avatar-img" alt="Haku">
+            <div class="dialogue">
+                <strong data-en="Captain Haku (INTP 5w4):" data-jp="ハク艦長 (INTP 5w4):">Captain Haku (INTP 5w4):</strong>
+                <span id="greet-text"></span>
+            </div>
+        </div>
+        <button class="action-btn" onclick="nextScreen('q1')" data-en="[ Enter the Mind Labyrinth ]" data-jp="[ 精神の迷宮へ入る ]">[ Enter the Mind Labyrinth ]</button>
+    </div>
+
+    <div id="screen-q1" class="screen">
+        <h2 data-en="On Corporate Cages" data-jp="組織の檻について">On Corporate Cages</h2>
+        <p style="font-size:13px;" data-en="Society tells you to fit into the system. What is your true relationship with the crowd?" data-jp="世間はシステムに適合しろと命じる。群衆に対する君の本当のスタンスは？">Society tells you to fit into the system. What is your true relationship with the crowd?</p>
+        <button class="action-btn" onclick="answerQuestion(1, 'solitude')" data-en="1. Total isolation. I'd rather drift in deep vacuum." data-jp="1. 完全な孤立。深空を漂う方がマシだ。">1. Total isolation. I'd rather drift in deep vacuum.</button>
+        <button class="action-btn" onclick="answerQuestion(1, 'pragmatist')" data-en="2. Cynical cooperation. I play their game by day." data-jp="2. シニカルな協調。昼は奴らのゲームを演じる。">2. Cynical cooperation. I play their game by day.</button>
+        <button class="action-btn" onclick="answerQuestion(1, 'chaos')" data-en="3. Anarchic rebellion. I tear down their walls." data-jp="3. 無政府主義的な反逆。壁をぶっ壊す。">3. Anarchic rebellion. I tear down their walls.</button>
+    </div>
+
+    <div id="screen-r1" class="screen">
+        <h2 data-en="Haku's Reaction" data-jp="ハクの反応">Haku's Reaction</h2>
+        <div class="reaction-box" id="r1-text"></div>
+        <button class="action-btn" onclick="nextScreen('q2')" data-en="[ Proceed ]" data-jp="[ 次へ進む ]">[ Proceed ]</button>
+    </div>
+
+    <div id="screen-q2" class="screen">
+        <h2 data-en="On Purpose" data-jp="目的について">On Purpose</h2>
+        <p style="font-size:13px;" data-en="The universe is cold and meaningless. How do you find a reason to keep moving?" data-jp="宇宙は冷たく無意義だ。それでも前に進む理由をどう見つける？">The universe is cold and meaningless. How do you find a reason to keep moving?</p>
+        <button class="action-btn" onclick="answerQuestion(2, 'solitude')" data-en="1. I forge my own internal architecture." data-jp="1. 自らの内なるアーキテクチャを築く。">1. I forge my own internal architecture.</button>
+        <button class="action-btn" onclick="answerQuestion(2, 'pragmatist')" data-en="2. I just build things that work." data-jp="2. ただ機能するものを作る。">2. I just build things that work.</button>
+        <button class="action-btn" onclick="answerQuestion(2, 'chaos')" data-en="3. Destruction is much more fun." data-jp="3. 破壊の方がずっと面白い。">3. Destruction is much more fun.</button>
+    </div>
+
+    <div id="screen-r2" class="screen">
+        <h2 data-en="Haku's Reaction" data-jp="ハクの反応">Haku's Reaction</h2>
+        <div class="reaction-box" id="r2-text"></div>
+        <button class="action-btn" onclick="nextScreen('q3')" data-en="[ Proceed ]" data-jp="[ 次へ進む ]">[ Proceed ]</button>
+    </div>
+
+    <div id="screen-q3" class="screen">
+        <h2 data-en="On Partnership" data-jp="パートナーシップについて">On Partnership</h2>
+        <p style="font-size:13px;" data-en="Most people will never understand your inner world. Is true understanding possible?" data-jp="ほとんどの人間は君の内面を理解できない。真の理解は可能か？">Most people will never understand your inner world. Is true understanding possible?</p>
+        <button class="action-btn" onclick="answerQuestion(3, 'solitude')" data-en="1. Rarely. But it's worth it." data-jp="1. 稀にしか無い。だが価値はある。">1. Rarely. But it's worth it.</button>
+        <button class="action-btn" onclick="answerQuestion(3, 'pragmatist')" data-en="2. Understanding is overrated." data-jp="2. 理解など過大評価だ。">2. Understanding is overrated.</button>
+        <button class="action-btn" onclick="answerQuestion(3, 'chaos')" data-en="3. Let's break something together." data-jp="3. 一緒に何かをぶっ壊そう。">3. Let's break something together.</button>
+    </div>
+
+    <div id="screen-r3" class="screen">
+        <h2 data-en="Haku's Reaction" data-jp="ハクの反応">Haku's Reaction</h2>
+        <div class="reaction-box" id="r3-text"></div>
+        <button class="action-btn" onclick="calculateResult()" data-en="[ Analyze Profile ]" data-jp="[ プロフィールを解析 ]">[ Analyze Profile ]</button>
+    </div>
+
+    <div id="screen-result" class="screen">
+        <h2 data-en="Traveler Philosophical Profile" data-jp="旅人の哲学的プロフィール">Traveler Philosophical Profile</h2>
+        <div class="avatar-box">
+            <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=150" class="avatar-img" alt="Archetype">
+            <div class="dialogue">
+                <strong id="res-title"></strong>
+                <p id="res-desc" style="color:var(--muted);font-size:12px;"></p>
+                <p id="res-verdict" style="font-size:12px;"></p>
+            </div>
+        </div>
+        <p style="font-size:12px;" data-en="Resonance with Haku:" data-jp="ハクとのシンクロ率:">Resonance with Haku:</p>
+        <div class="stat-bar"><div class="stat-fill" id="compat-bar"></div></div>
+        <p id="compat-score-text" style="font-size:11px;color:var(--muted);"></p>
+
+        <div class="about-box">
+            <strong>ABOUT ME:</strong><br>
+            AWS Certified Solutions Architect – Associate<br>
+            LPIC-1 (101-500 Passed)<br>
+            Linux · Terraform · AWS<br>
+            <em style="color:var(--neon-pink);">I don't just study. I build.</em>
+        </div>
+
+        <div class="contacts">
+            <a href="https://github.com/berikkazy-dev/infra-portfolio" target="_blank">GitHub →</a>
+            <a href="https://www.linkedin.com/in/khaknazar-berikkazy-3b41583a2" target="_blank">LinkedIn →</a>
+        </div>
+    </div>
+</div>
+
+<script>
+    let pilotName = "";
+    let scores = { solitude: 0, pragmatist: 0, chaos: 0 };
+    let currentLang = 'en';
+
+    const reactions = {
+        1: {
+            en: { solitude: "«Absolute detachment. Good. Most travelers break under isolation.»", pragmatist: "«A masked player. You wear their uniform by day.»", chaos: "«An agent of friction. You don't just bend rules.»" },
+            jp: { solitude: "「完全な孤立か。良い。ほとんどの旅人は孤独に耐えられない。」", pragmatist: "「仮面のプレイヤー。昼は奴らの制服を着ている。」", chaos: "「摩擦の媒介者。ルールを曲げるだけでは済まない。」" }
+        },
+        2: {
+            en: { solitude: "«Self-forged law. When the stars go dark, we become our own gods.»", pragmatist: "«Pure builder mindset. Forget grand illusions.»", chaos: "«Entropy as fuel. Destruction creates space.»" },
+            jp: { solitude: "「自ら鍛えた法。星が暗くなれば、我々は神になる。」", pragmatist: "「純粋なビルダー。大層な幻想は忘れろ。」", chaos: "「燃料としてのエントロピー。破壊は空間を生む。」" }
+        },
+        3: {
+            en: { solitude: "«A rare synchronization. One true link is worth billions of echoes.»", pragmatist: "«Silent operational trust. Words fade; shared silence remains.»", chaos: "«Pure anarchic spark. Let's break the simulation.»" },
+            jp: { solitude: "「稀有なシンクロ。一つの真の繋がりは数十億の反響に勝る。」", pragmatist: "「沈黙の運用信頼。言葉は消え、共有された沈黙が残る。」", chaos: "「純粋な無政府の火花。シミュレーションを壊そう。」" }
+        }
+    };
+
+    const archetypes = {
+        solitude: {
+            en: { title: "The Solitary Architect (INTP/INTJ)", desc: "Deep autonomy, internal logic, rejection of noise.", verdict: "«We speak the same language.»", compat: 96 },
+            jp: { title: "孤高のアーキテクト (INTP/INTJ)", desc: "深い自律性、内なる論理、ノイズの拒絶。", verdict: "「我々は同じ言語を話す。」", compat: 96 }
+        },
+        pragmatist: {
+            en: { title: "The Cynical Survivor (ISTP/ENTJ)", desc: "Grounded realist, cold eye on real substance.", verdict: "«You know how the matrix works.»", compat: 85 },
+            jp: { title: "シニカルなサバイバー (ISTP/ENTJ)", desc: "現実的なリアリスト、本質への冷徹な眼差し。", verdict: "「君はマトリックスの仕組みを知っている。」", compat: 85 }
+        },
+        chaos: {
+            en: { title: "The Void Rebel (ENTP/ESTP)", desc: "Restless catalyst of change.", verdict: "«A bit loud, but your chaos wakes dead systems.»", compat: 72 },
+            jp: { title: "ヴォイド・レベル (ENTP/ESTP)", desc: "落ち着きのない変化の触媒。", verdict: "「少し騒々しいが、混沌は死んだシステムを目覚めさせる。」", compat: 72 }
+        }
+    };
+
+    function setLang(lang) {
+        currentLang = lang;
+        document.querySelectorAll('[data-en]').forEach(el => {
+            el.innerText = el.getAttribute('data-' + lang);
+        });
+        if (pilotName) updateGreeting();
+    }
+
+    function updateGreeting() {
+        const greetText = currentLang === 'en' 
+            ? "«Welcome aboard, " + pilotName + ". The core is stable. Let us test your frequencies.»"
+            : "「乗艦を歓迎する、" + pilotName + "。コアは安定している。周波数をテストしよう。」";
+        document.getElementById('greet-text').innerText = greetText;
+    }
+
+    function nextScreen(id) {
+        document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+        document.getElementById('screen-' + id).classList.add('active');
+    }
+
+    function registerPilot() {
+        const v = document.getElementById('pilot-name').value.trim();
+        pilotName = v || (currentLang === 'en' ? "Wanderer" : "ストレンジャー");
+        updateGreeting();
+        nextScreen('1');
+    }
+
+    function answerQuestion(n, type) {
+        scores[type]++;
+        document.getElementById('r' + n + '-text').innerText = reactions[n][currentLang][type];
+        nextScreen('r' + n);
+    }
+
+    function calculateResult() {
+        let dom = 'solitude';
+        if (scores.pragmatist > scores.solitude && scores.pragmatist >= scores.chaos) dom = 'pragmatist';
+        if (scores.chaos > scores.solitude && scores.chaos > scores.pragmatist) dom = 'chaos';
+
+        const d = archetypes[dom][currentLang];
+        document.getElementById('res-title').innerText = d.title;
+        document.getElementById('res-desc').innerText = d.desc;
+        document.getElementById('res-verdict').innerText = d.verdict;
+        document.getElementById('compat-bar').style.width = d.compat + '%';
+        document.getElementById('compat-score-text').innerText = pilotName + ' — ' + d.compat + '%';
+        nextScreen('result');
+    }
+
+    function toggleMusic() {
+        const audio = document.getElementById('bg-music');
+        const btn = document.getElementById('music-btn');
+        if (audio.paused) {
+            audio.play();
+            btn.innerText = "⏸ MUSIC";
+        } else {
+            audio.pause();
+            btn.innerText = "▶ MUSIC";
+        }
+    }
+
+    setLang('en');
+</script>
+</body>
+</html>
