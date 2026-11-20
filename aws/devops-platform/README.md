@@ -20,10 +20,6 @@ Automated the deployment of an isolated AWS infrastructure in the Tokyo region (
 - Created a VPC with CIDR block 10.0.0.0/16
 - Configured a public subnet (**10.0.1.0/24**) with automatic public IP assignment
 
-### Code
-
-![Provider, VPC and Subnet](images/provider-vpc-subnet.png)
-
 ### Apply Result
 
 ![Terraform Apply Result](images/provider-vpc-subnet-apply.png)
@@ -42,10 +38,6 @@ Automated the deployment of an isolated AWS infrastructure in the Tokyo region (
 - Created a Route Table with a default route (**0.0.0.0/0**)
 - Associated the Route Table with the public subnet
 
-### Code
-
-![Internet Gateway and Route Table](images/internet-gateway-route-table.png)
-
 ### Apply Result
 
 ![Terraform Apply Result](images/internet-gateway-route-table-apply.png)
@@ -56,20 +48,15 @@ Automated the deployment of an isolated AWS infrastructure in the Tokyo region (
 
 ## 🇯🇵 実施内容
 - Security Group（portfolio-sg）の作成
-- SSH（22）、HTTP（80）、HTTPS（443）のインバウンドルールを設定
+- TTP（80）、HTTPS（443）のインバウンドルールを設定
 - すべてのアウトバウンド通信を許可
 
 ## 🇺🇸 What I did
 - Created a Security Group (**portfolio-sg**)
 - Configured inbound rules for:
-  - SSH (22)
   - HTTP (80)
   - HTTPS (443)
 - Allowed all outbound traffic
-
-### Code
-
-![Security Group](images/security-group.png)
 
 ### Apply Result
 
@@ -89,10 +76,6 @@ Automated the deployment of an isolated AWS infrastructure in the Tokyo region (
 - Provisioned an EC2 t3.micro instance
 - Attached the instance to the public subnet and security group
 
-### Code
-
-![EC2 Instance](images/ec2-instance.png)
-
 ### Apply Result
 
 ![Terraform Apply Result](images/ec2-instance-apply.png)
@@ -108,8 +91,6 @@ After successfully deploying the initial infrastructure, I realized that keeping
 
 ### 🇯🇵 日本語
 初期のインフラ構築が成功した後、すべてのTerraformコードを単一の `main.tf` ファイルにまとめておくことは、保守性の観点から良くないプラクティスであることに気づきました。そこで、コードベースを論理的なファイル（例：`vpc.tf`, `ec2.tf`, `security.tf`）に分割（リファクタリング）しました。これにより、インフラの可読性、保守性、拡張性が向上しました。
-
-![Refactored File Structure](images/refactored-structure.png)
 
 ---
 
